@@ -3,11 +3,11 @@ import * as React from "react";
 const App = () => {
   return(
     <React.Fragment>
-      <head>
+      <header>
 
-      </head>
+      </header>
       <main>
-
+        Hello Walrus!
       </main>
       <footer>
         
@@ -15,3 +15,5 @@ const App = () => {
     </React.Fragment>
   )
 }
+
+export default App;
