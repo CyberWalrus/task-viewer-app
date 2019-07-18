@@ -12,8 +12,8 @@ const App = () => {
             <li className={`filter__item`}>Очень важные</li>
           </ul>
         </nav>
-        <div className={`add-task-container`}>
-          <button className={`add-task`} />
+        <div className={`add-task`}>
+          <button className={`add-task__btn`} />
         </div>
       </header>
       <main className={`page-main`}>
@@ -31,6 +31,7 @@ const App = () => {
                   <p className={`task__id`}>{`1`}</p>
                 </div>
                 <div className={`task__main`}>
+                  <h3 className={`task__title`}></h3>
                   <p className={`task__text`}>{item}</p>
                 </div>
                 <div className={`task__controls`}>
@@ -40,20 +41,20 @@ const App = () => {
             </div>
           ))}
           <div className={`content__show-more`}>
-            <button className={`content__button`}>{`more`}</button>
+            <button className={`content__btn`}>{`more`}</button>
           </div>
         </section>
         <div />
       </main>
       <footer className={`page-footer`}>
-        <div className={`copyright`}>
-          <p>© 2019 Walrus Personal App</p>
+        <div className={`page-footer__copyright`}>
+          <p className={`page-footer__text`}>© 2019 Walrus Personal App</p>
         </div>
       </footer>
       <div className={`task-form`}>
-        <form>
+        <form className={`task-form__form`}>
           <h3 className={`task-form__title`}>{`Add task`}</h3>
-          <div className={`task-form__container-add`}>
+          <div className={`task-form__container-submit`}>
             <button className={`task-form__btn-submit`}>{`add`}</button>
           </div>
           <div className={`task-form__container-delete`}>
