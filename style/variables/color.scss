@@ -1,0 +1,28 @@
+@mixin defineColorOpacity($color, $value) {
+  #{$color}: #{$value};
+  #{$color}_75: #{change-color($value, $alpha: 0.75)};
+  #{$color}_40: #{change-color($value, $alpha: 0.4)};
+  #{$color}_15: #{change-color($value, $alpha: 0.15)};
+}
+
+$color3: rgba(1, 186, 239, 1);
+$color5: rgba(117, 117, 117, 1);
+$color6: rgba(253, 231, 76, 1);
+$color7: rgba(155, 197, 61, 1);
+$color8: rgba(229, 89, 52, 1);
+$color9: rgba(250, 121, 33, 1);
+
+$color-text: rgb(11, 16, 19);
+$color-text-dop: rgba(117, 117, 117, 1);
+$color-base: rgba(251, 251, 255, 1);
+$color-dop: rgba(11, 79, 108, 1);
+$color-accept: rgba(32, 191, 85, 1);
+
+:root {
+  --color-text: #{$color-text};
+  --color-text-dop: #{$color-text-dop};
+  --color-base: #{$color-base};
+  @include defineColorOpacity(--color-dop, $color-dop);
+  --color-accept: #{$color-accept};
+  --color-opacity: rgba(0, 0, 0, 0);
+}

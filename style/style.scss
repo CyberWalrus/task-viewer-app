@@ -1,5 +1,22 @@
 @import "../node_modules/normalize-scss/sass/normalize";
 @include normalize();
+@import "./variables/color.scss";
 body {
-  background: green;
+  font-family: 'Fira Code', monospace;
+  color: var(--color-text);
+  min-inline-size: 100vw;
+  min-block-size: 100vh;
+  background: linear-gradient(
+      0deg,
+      var(--color-opacity) 0,
+      var(--color-opacity) 40%,
+      var(--color-dop_15) 75%,
+      var(--color-dop_40) 100%
+    ),
+    var(--color-base);
+  background-attachment: fixed;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
 }
+@import "./blocks/index.scss";
