@@ -1,0 +1,43 @@
+{
+  "name": "task-viewer-app",
+  "version": "0.0.1",
+  "description": "test app for 'OOO' Integral",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CyberWalrus/task-viewer-app.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "sass"
+  ],
+  "author": "Andrey Pakhomov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CyberWalrus/task-viewer-app/issues"
+  },
+  "homepage": "https://github.com/CyberWalrus/task-viewer-app#readme",
+  "dependencies": {
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "react-redux": "7.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.5.5",
+    "@babel/core": "7.5.5",
+    "@babel/preset-env": "7.5.5",
+    "@babel/preset-flow": "7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "eslint": "6.0.1",
+    "eslint-config-airbnb": "17.1.1",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.2",
+    "webpack": "4.36.1",
+    "webpack-dev-server": "3.7.2"
+  }
+}
