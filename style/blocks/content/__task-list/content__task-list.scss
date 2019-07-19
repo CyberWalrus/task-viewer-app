@@ -1,0 +1,8 @@
+.content__task-list {
+  max-inline-size: calc( 100% - 1rem);
+  padding-inline-start: 0.5rem;
+  padding-inline-end: 0.5rem;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 0.5rem;
+}

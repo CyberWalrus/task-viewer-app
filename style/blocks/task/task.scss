@@ -1,0 +1,13 @@
+@import "./__btn-change/task__btn-change.scss";
+@import "./__header/task__header.scss";
+@import "./__id/task__id.scss";
+@import "./__main/task__main.scss";
+@import "./__text/task__text.scss";
+@import "./__title/task__title.scss";
+
+.task{
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-block-size: 7rem;
+  background: var(--color-accept);
+}

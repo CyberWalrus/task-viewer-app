@@ -40,27 +40,26 @@ const App = () => {
       <main className={`page-main`}>
         <section className={`content`}>
           <h2 className={`content__title`}>{`Задачи`}</h2>
-          {[
-            `testets`,
-            `ssdlkjljl dsflalf`,
-            `Test text for task`,
-            `sdddddddddddddddddddddddddddddddddddddddddddddddd`
-          ].map((item, index) => (
-            <div key={index} className={`content__task-list`}>
-              <div className={`task`}>
-                <div className={`task__sort`}>
+          <div className={`content__task-list`}>
+            {[
+              `testets`,
+              `ssdlkjljl dsflalf`,
+              `Test text for task`,
+              `sdddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddd`
+            ].map((item, index) => (
+              <div key={index}  className={`task`}>
+                <div className={`task__header`}>
                   <p className={`task__id`}>{`1`}</p>
-                </div>
-                <div className={`task__main`}>
-                  <h3 className={`task__title`} />
-                  <p className={`task__text`}>{item}</p>
-                </div>
-                <div className={`task__controls`}>
+                  <h3 className={`task__title`}>{`Задача`}</h3>
                   <button className={`task__btn-change`} />
                 </div>
+                <div className={`task__main`}>
+                  <p className={`task__text`}>{item}</p>
+                  <p className={`task__date`}>{`19.07.2019`}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
           <div className={`content__show-more`}>
             <button className={`content__btn`}>{`more`}</button>
           </div>
@@ -69,7 +68,7 @@ const App = () => {
       </main>
       <footer className={`page-footer`}>
         <div className={`page-footer__copyright`}>
-          <p className={`page-footer__text`}>© 2019 Walrus Personal App</p>
+          <p className={`page-footer__text`}>© 2019 Task Viewer Application</p>
         </div>
       </footer>
       <div className={`task-form`}>

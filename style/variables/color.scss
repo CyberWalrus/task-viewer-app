@@ -17,6 +17,7 @@ $color-text-dop: rgba(117, 117, 117, 1);
 $color-base: rgba(251, 251, 255, 1);
 $color-dop: rgba(11, 79, 108, 1);
 $color-accept: rgba(32, 191, 85, 1);
+$color-header: rgba(1, 186, 239, 1);
 
 :root {
   --color-text: #{$color-text};
@@ -24,5 +25,6 @@ $color-accept: rgba(32, 191, 85, 1);
   --color-base: #{$color-base};
   @include defineColorOpacity(--color-dop, $color-dop);
   --color-accept: #{$color-accept};
+  --color-header: #{$color-header};
   --color-opacity: rgba(0, 0, 0, 0);
 }

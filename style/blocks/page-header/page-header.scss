@@ -1,8 +1,9 @@
 .page-header {
   inline-size: 100vw;
   max-inline-size: 100vw;
-  min-block-size: 2.5rem;
+  min-block-size: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--color-header);
 }

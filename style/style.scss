@@ -2,7 +2,7 @@
 @include normalize();
 @import "./variables/color.scss";
 body {
-  font-family: 'Fira Code', monospace;
+  font-family: monospace;
   color: var(--color-text);
   min-inline-size: 100vw;
   min-block-size: 100vh;
