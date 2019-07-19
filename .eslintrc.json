@@ -16,9 +16,10 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:jsx-a11y/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:flowtype/recommended"
   ],
-  "plugins": ["react", "jsx-a11y"],
+  "plugins": ["react", "jsx-a11y", "flowtype"],
   "settings": {
     "react": {
       "version": 16
