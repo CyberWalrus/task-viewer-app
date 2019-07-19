@@ -1,57 +1,56 @@
-const path = require("path");
-const root = args => {
-  return path.join.apply(path, [__dirname].concat(`./`, args));
-};
+const path = require('path');
+
+const root = args => path.join(...[__dirname].concat('./', args));
 
 module.exports = {
   entry: {
-    bundle: [root(`src/index.js`), root(`style/style.scss`)]
+    bundle: [root('src/index.jsx'), root('style/style.scss')],
   },
   output: {
-    filename: `js/bundle.js`,
-    path: root(`dist/`)
+    filename: 'js/bundle.js',
+    path: root('dist/'),
   },
   devServer: {
-    contentBase: path.join(__dirname, `dist`),
+    contentBase: path.join(__dirname, 'dist'),
     compress: false,
     port: 8080,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
-  mode: `development`,
+  mode: 'development',
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: `babel-loader`
-        }
+          loader: 'babel-loader',
+        },
       },
 
       {
         test: /\.scss$/,
         use: [
           {
-            loader: `file-loader`,
+            loader: 'file-loader',
             options: {
-              name: `style/[name].css`
-            }
+              name: 'style/[name].css',
+            },
           },
           {
-            loader: `extract-loader`
+            loader: 'extract-loader',
           },
           {
-            loader: `css-loader?-url`
+            loader: 'css-loader?-url',
           },
           {
-            loader: `postcss-loader`
+            loader: 'postcss-loader',
           },
           {
-            loader: `sass-loader`
-          }
-        ]
-      }
-    ]
+            loader: 'sass-loader',
+          },
+        ],
+      },
+    ],
   },
-  devtool: `source-map`
+  devtool: 'source-map',
 };
