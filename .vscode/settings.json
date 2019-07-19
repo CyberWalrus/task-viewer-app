@@ -1,0 +1,5 @@
+{
+  "prettier.endOfLine": "lf",
+  "prettier.eslintIntegration": true,
+  "files.eol": "\n"
+}
