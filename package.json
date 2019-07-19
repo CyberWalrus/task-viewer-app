@@ -1,7 +1,7 @@
 {
   "name": "task-viewer-app",
-  "version": "0.0.1",
-  "description": "test app for 'OOO' Integral",
+  "version": "0.0.3",
+  "description": "test app for Integral",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,8 +18,8 @@
     "redux",
     "sass"
   ],
-  "author": "Andrey Pakhomov",
-  "license": "ISC",
+  "author": "Cyber Walrus (Andrey Pakhomov)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/CyberWalrus/task-viewer-app/issues"
   },
