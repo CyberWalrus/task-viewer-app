@@ -1,0 +1,22 @@
+@import "./__btn-close/task-form__btn-close.scss";
+@import "./__btn-delete/task-form__btn-delete.scss";
+@import "./__btn-submit/task-form__btn-submit.scss";
+@import "./__container/task-form__container.scss";
+@import "./__container-close/task-form__container-close.scss";
+@import "./__container-delete/task-form__container-delete.scss";
+@import "./__container-submit/task-form__container-submit.scss";
+@import "./__header/task-form__header.scss";
+@import "./__input-date/task-form__input-date.scss";
+@import "./__input-description/task-form__input-description.scss";
+@import "./__input-text/task-form__input-text.scss";
+@import "./__label/task-form__label.scss";
+@import "./__select-status/task-form__select-status.scss";
+@import "./__title/task-form__title.scss";
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accept);
+}

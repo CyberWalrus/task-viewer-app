@@ -47,7 +47,7 @@ const App = () => {
               `Test text for task`,
               `sdddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddd`
             ].map((item, index) => (
-              <div key={index}  className={`task`}>
+              <div key={index} className={`task`}>
                 <div className={`task__header`}>
                   <p className={`task__id`}>{`1`}</p>
                   <h3 className={`task__title`}>{`Задача`}</h3>
@@ -72,16 +72,18 @@ const App = () => {
         </div>
       </footer>
       <div className={`task-form`}>
-        <form className={`task-form__form`}>
-          <h3 className={`task-form__title`}>{`Add task`}</h3>
-          <div className={`task-form__container-submit`}>
-            <button className={`task-form__btn-submit`}>{`add`}</button>
-          </div>
-          <div className={`task-form__container-delete`}>
-            <button className={`task-form__btn-delete`}>{`delete`}</button>
-          </div>
-          <div className={`task-form__container-close`}>
-            <button className={`task-form__btn-close`}>{`close`}</button>
+        <form className={`task-form`}>
+          <div className={`task-form__header`}>
+            <div className={`task-form__container-submit`}>
+              <button className={`task-form__btn-submit`}>{`add`}</button>
+            </div>
+            <div className={`task-form__container-delete`}>
+              <button className={`task-form__btn-delete`}>{`delete`}</button>
+            </div>
+            <h3 className={`task-form__title`}>{`Add task`}</h3>
+            <div className={`task-form__container-close`}>
+              <button className={`task-form__btn-close`}>{`close`}</button>
+            </div>
           </div>
           <div className={`task-form__container`}>
             <label className={`task-form__label`} />
