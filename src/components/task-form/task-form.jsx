@@ -1,4 +1,5 @@
 import React from 'react';
+import TaskInput from '../task-input/task-input';
 
 const TaskForm = () => (
   <form className="task-form">
@@ -39,6 +40,7 @@ const TaskForm = () => (
     <div className="task-form__container">
       <textarea className="task-form__input-description" />
     </div>
+    <TaskInput />
   </form>
 );
 

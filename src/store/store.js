@@ -12,16 +12,21 @@ const taskStatus = {
   IMPORTANT: 'Важная',
   VERY_IMPORTANT: 'Очень Важная',
 };
-export type Task = {
+
+const ALL_TASK = 'Все';
+type Task = {
   id: number,
   name: string,
   status: $Keys<typeof taskStatus>,
   dateNeedEnd: Date,
   dateEnd: Date,
 };
-export type InitialState = {
+type InitialState = {
   tasks: Array<Task>,
-  isOpen: boolean,
+  form: {
+    isAdd: boolean,
+    isOpen: boolean,
+  },
 };
 
 type AddTask = { type: typeof ActionType.ADD_TASK, payload: Task };
@@ -31,7 +36,10 @@ type Action = AddTask | ChangeTask | ChangeIsOpen;
 
 const initialState: InitialState = {
   tasks: [],
-  isOpen: false,
+  form: {
+    isAdd: true,
+    isOpen: false,
+  },
 };
 
 const ActionCreator = {
@@ -44,7 +52,7 @@ const ActionCreator = {
     payload: task,
   }),
   changeIsOpen: (value: boolean): ChangeIsOpen => ({
-    type: ActionType.CHANGE_TASK,
+    type: ActionType.CHANGE_ISOPEN,
     payload: value,
   }),
 };
@@ -57,10 +65,12 @@ const reducer = (state: InitialState = initialState, action: Action) => {
     case ActionType.CHANGE_TASK:
       return { ...state };
     case ActionType.CHANGE_ISOPEN:
-      return { ...state, isOpen: action.payload };
+      return { ...state, form: { isOpen: action.payload } };
     default:
       return state;
   }
 };
 
-export { ActionCreator, ActionType, reducer, initialState };
+export {
+  ActionCreator, ActionType, reducer, initialState,
+};
