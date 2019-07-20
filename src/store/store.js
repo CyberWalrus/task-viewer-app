@@ -13,13 +13,13 @@ const taskStatus = {
   VERY_IMPORTANT: 'Очень Важная',
 };
 
-const ALL_TASK = 'Все';
 type Task = {
   id: number,
   name: string,
+  text: string,
   status: $Keys<typeof taskStatus>,
-  dateNeedEnd: Date,
-  dateEnd: Date,
+  dateTerm: ?Date,
+  dateEnd: ?Date,
 };
 type InitialState = {
   tasks: Array<Task>,

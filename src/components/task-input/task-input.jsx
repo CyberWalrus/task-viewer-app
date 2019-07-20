@@ -1,15 +1,27 @@
 // @flow
-import React, { useState } from 'react';
+import React from 'react';
 
-const TaskInput = () => {
-  const [value, setValue] = useState('');
-  const handleChangeValue = event => setValue(event.target.value);
-
-  return (
-    <div className="task-form__container">
-      <input type="text" className="task-form__input-date" value={value} onChange={handleChangeValue} />
-    </div>
-  );
+type Props = {
+  option: {
+    title: string,
+    type: string,
+    cssClass: string,
+    name: string,
+  },
+  value: Object,
+  onChangeValue: (event: SyntheticInputEvent<HTMLInputElement>) => void,
 };
+const TaskInput = ({ option, value, onChangeValue }: Props) => (
+  <div className="task-form__container">
+    {option.title}
+    <input
+      type={option.type}
+      className={option.cssClass}
+      name={option.name}
+      value={value[option.name]}
+      onChange={onChangeValue}
+    />
+  </div>
+);
 
 export default TaskInput;
