@@ -1,16 +1,33 @@
-import React from 'react';
+// @flow
+import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { getIsOpen } from '../../store/selector';
 import Content from '../content/content';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import TaskForm from '../task-form/task-form';
 
-const App = () => (
-  <React.Fragment>
+type Props = {
+  isOpen: boolean,
+};
+
+const App = ({ isOpen }: Props) => (
+  <Fragment>
     <Header />
     <main className="page-main">
       <Content />
     </main>
     <Footer />
-  </React.Fragment>
+    {isOpen.toString()}
+    {isOpen ? <TaskForm /> : <Fragment />}
+  </Fragment>
 );
 
-export default App;
+const mapStateToProps = (state, ownProps) => ({
+  ...ownProps,
+  isOpen: getIsOpen(state),
+});
+
+export { App };
+
+export default connect(mapStateToProps)(App);

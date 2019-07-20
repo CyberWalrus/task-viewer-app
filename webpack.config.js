@@ -16,7 +16,6 @@ module.exports = {
     port: 8080,
     historyApiFallback: true,
   },
-  mode: 'development',
   module: {
     rules: [
       {
@@ -52,5 +51,9 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+  mode: 'development',
   devtool: 'source-map',
 };

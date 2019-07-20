@@ -1,5 +1,12 @@
 {
   "prettier.endOfLine": "lf",
   "prettier.eslintIntegration": true,
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "cSpell.words": [
+    "persistor",
+    "middlewares",
+    "ISOPEN",
+    "Andrey",
+    "Pakhomov"
+  ]
 }

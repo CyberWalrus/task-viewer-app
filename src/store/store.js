@@ -1,4 +1,12 @@
 // @flow
+
+const ActionType = {
+  ADD_TASK: 'ADD_TASK',
+  CHANGE_TASK: 'CHANGE_TASK',
+  DELETE_TASK: 'DELETE_TASK',
+  CHANGE_ISOPEN: 'CHANGE_ISOPEN',
+};
+
 const taskStatus = {
   NORMAL: 'Обычная',
   IMPORTANT: 'Важная',
@@ -13,20 +21,17 @@ export type Task = {
 };
 export type InitialState = {
   tasks: Array<Task>,
-};
-
-const ActionType = {
-  ADD_TASK: 'ADD_TASK',
-  CHANGE_TASK: 'CHANGE_TASK',
-  DELETE_TASK: 'DELETE_TASK',
+  isOpen: boolean,
 };
 
 type AddTask = { type: typeof ActionType.ADD_TASK, payload: Task };
 type ChangeTask = { type: typeof ActionType.CHANGE_TASK, payload: Task };
-type Action = AddTask | ChangeTask;
+type ChangeIsOpen = { type: typeof ActionType.CHANGE_ISOPEN, payload: boolean };
+type Action = AddTask | ChangeTask | ChangeIsOpen;
 
 const initialState: InitialState = {
   tasks: [],
+  isOpen: true,
 };
 
 const ActionCreator = {
@@ -38,6 +43,10 @@ const ActionCreator = {
     type: ActionType.CHANGE_TASK,
     payload: task,
   }),
+  changeIsOpen: (value: boolean): ChangeIsOpen => ({
+    type: ActionType.CHANGE_TASK,
+    payload: value,
+  }),
 };
 
 const reducer = (state: InitialState = initialState, action: Action) => {
@@ -46,9 +55,9 @@ const reducer = (state: InitialState = initialState, action: Action) => {
       return { ...state, tasks: action.payload };
 
     case ActionType.CHANGE_TASK:
-      return Object.assign({}, state, {
-        playFilmId: action.payload,
-      });
+      return { ...state };
+    case ActionType.CHANGE_ISOPEN:
+      return { ...state, isOpen: action.payload };
     default:
       return state;
   }
