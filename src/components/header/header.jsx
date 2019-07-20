@@ -42,9 +42,7 @@ const Header = ({ onChangeIsOpen }: Props) => (
   </header>
 );
 
-const mapStateToProps = (state, ownProps) => ({
-  ...ownProps
-});
+const mapStateToProps = (state, ownProps: Props) => (ownProps);
 const mapDispatchToProps = dispatch => ({
   onChangeIsOpen: (value: boolean): void => {
     dispatch(ActionCreator.changeIsOpen(value));
