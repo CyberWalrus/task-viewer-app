@@ -31,7 +31,7 @@ type Action = AddTask | ChangeTask | ChangeIsOpen;
 
 const initialState: InitialState = {
   tasks: [],
-  isOpen: true,
+  isOpen: false,
 };
 
 const ActionCreator = {
@@ -63,4 +63,4 @@ const reducer = (state: InitialState = initialState, action: Action) => {
   }
 };
 
-export { ActionCreator, ActionType, reducer };
+export { ActionCreator, ActionType, reducer, initialState };
