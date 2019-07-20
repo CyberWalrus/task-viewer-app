@@ -1,45 +1,46 @@
 // @flow
+import { taskStatusFilter, typeof TASK_ALL as TaskStatus } from '../constants/task-status';
 
 const ActionType = {
   ADD_TASK: 'ADD_TASK',
   CHANGE_TASK: 'CHANGE_TASK',
   DELETE_TASK: 'DELETE_TASK',
   CHANGE_ISOPEN: 'CHANGE_ISOPEN',
-};
-
-const taskStatus = {
-  NORMAL: 'Обычная',
-  IMPORTANT: 'Важная',
-  VERY_IMPORTANT: 'Очень Важная',
+  CHANGE_FILTER: 'CHANGE_FILTER',
 };
 
 type Task = {
   id: number,
   name: string,
   text: string,
-  status: $Keys<typeof taskStatus>,
+  status: TaskStatus,
   dateTerm: ?Date,
   dateEnd: ?Date,
 };
 type InitialState = {
   tasks: Array<Task>,
+  task: Task,
   form: {
     isAdd: boolean,
     isOpen: boolean,
   },
+  filter: TaskStatus,
 };
 
 type AddTask = { type: typeof ActionType.ADD_TASK, payload: Task };
 type ChangeTask = { type: typeof ActionType.CHANGE_TASK, payload: Task };
 type ChangeIsOpen = { type: typeof ActionType.CHANGE_ISOPEN, payload: boolean };
-type Action = AddTask | ChangeTask | ChangeIsOpen;
+type ChangeFilter = { type: typeof ActionType.CHANGE_FILTER, payload: TaskStatus };
+type Action = AddTask | ChangeTask | ChangeIsOpen | ChangeFilter;
 
 const initialState: InitialState = {
   tasks: [],
+  task: {},
   form: {
     isAdd: true,
     isOpen: false,
   },
+  filter: taskStatusFilter.TASK_ALL,
 };
 
 const ActionCreator = {
@@ -55,17 +56,22 @@ const ActionCreator = {
     type: ActionType.CHANGE_ISOPEN,
     payload: value,
   }),
+  changeFilter: (value: TaskStatus): ChangeFilter => ({
+    type: ActionType.CHANGE_FILTER,
+    payload: value,
+  }),
 };
 
 const reducer = (state: InitialState = initialState, action: Action) => {
   switch (action.type) {
     case ActionType.ADD_TASK:
       return { ...state, tasks: action.payload };
-
     case ActionType.CHANGE_TASK:
       return { ...state };
     case ActionType.CHANGE_ISOPEN:
       return { ...state, form: { isOpen: action.payload } };
+    case ActionType.CHANGE_FILTER:
+      return { ...state, filter: action.payload };
     default:
       return state;
   }

@@ -1,13 +1,23 @@
 // @flow
 import React from 'react';
+import { connect } from 'react-redux';
 import useTaskForm from '../useTaskForm/useTaskForm';
 import TaskInput from '../task-input/task-input';
 import {
   inputName, inputText, inputDateTerm, inputDateEnd,
 } from '../../constants/input';
+import { ActionCreator, typeof initialState as InitialState } from '../../store/store';
+import { taskStatus } from '../../constants/task-status';
 
-const TaskForm = () => {
-  const { inputs, handleInputChange, handleSubmit } = useTaskForm();
+type Props = {
+  onSendTask: (task: any) => void,
+};
+
+const TaskForm = ({ onSendTask }: Props) => {
+  const { inputs, handleInputChange, handleSubmit } = useTaskForm(() => {
+    onSendTask(inputs);
+  });
+
   return (
     <form className="task-form" onSubmit={handleSubmit}>
       <div className="task-form__header">
@@ -30,10 +40,16 @@ const TaskForm = () => {
       </div>
       <TaskInput option={inputName} value={inputs} onChangeValue={handleInputChange} />
       <div className="task-form__container">
-        <select className="task-form__select-status">
-          <option>Обычная</option>
-          <option>Важная</option>
-          <option>Очень важная</option>
+        <select
+          className="task-form__select-status"
+          name="status"
+          onChangeValue={handleInputChange}
+        >
+          {Object.keys(taskStatus).map((item: string) => (
+            <option value={taskStatus[item]} key={`task-status-${item}`}>
+              {taskStatus[item]}
+            </option>
+          ))}
         </select>
       </div>
       <TaskInput option={inputDateTerm} value={inputs} onChangeValue={handleInputChange} />
@@ -43,4 +59,16 @@ const TaskForm = () => {
   );
 };
 
-export default TaskForm;
+const mapStateToProps = (state: InitialState, ownProps: Props) => ownProps;
+const mapDispatchToProps = dispatch => ({
+  onSendTask: (value: any): void => {
+    dispatch(ActionCreator.addTask(value));
+  },
+});
+
+export { TaskForm };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TaskForm);
