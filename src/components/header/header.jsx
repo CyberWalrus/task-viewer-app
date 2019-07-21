@@ -38,10 +38,10 @@ const Header = ({ onChangeIsOpen, onChangeFilter }: Props) => (
 const mapStateToProps = (state: InitialState, ownProps: Props) => ownProps;
 const mapDispatchToProps = dispatch => ({
   onChangeIsOpen: (value: boolean): void => {
-    dispatch(ActionCreator.changeIsOpen(value));
+    dispatch(ActionCreator.setIsOpen(value));
   },
   onChangeFilter: (value: TaskStatus): void => {
-    dispatch(ActionCreator.changeFilter(value));
+    dispatch(ActionCreator.setFilter(value));
   },
 });
 

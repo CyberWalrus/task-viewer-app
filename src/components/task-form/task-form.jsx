@@ -1,32 +1,34 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import useTaskForm from '../useTaskForm/useTaskForm';
+import useTaskForm from '../../hooks/use-task-form/use-task-form';
 import TaskInput from '../task-input/task-input';
 import {
   inputName, inputText, inputDateTerm, inputDateEnd,
 } from '../../constants/input';
-import {
-  Operation,
-  typeof initialState as InitialState,
-  initialState,
-} from '../../store/store';
+import { Operation, typeof initialState as InitialState, initialState } from '../../store/store';
 import { taskStatus } from '../../constants/task-status';
 
 type Props = {
   onSendTask: (task: typeof initialState.task | any) => void,
 };
 
+const task = {
+  name: '',
+  text: '',
+  status: taskStatus.NORMAL,
+  dateTerm: '',
+  dateEnd: '',
+};
+
 const TaskForm = ({ onSendTask }: Props) => {
-  const { inputs, handleInputChange, handleSubmit } = useTaskForm(() => {
-    onSendTask(inputs);
-  });
+  const { inputs, handleInputChange, handleSubmit } = useTaskForm(task, () => onSendTask(inputs));
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
       <div className="task-form__header">
         <div className="task-form__container-submit">
-          <button type="button" className="task-form__btn-submit" onClick={handleSubmit}>
+          <button type="submit" className="task-form__btn-submit">
             add
           </button>
         </div>
@@ -47,7 +49,6 @@ const TaskForm = ({ onSendTask }: Props) => {
         <select
           className="task-form__select-status"
           name="status"
-          onChangeValue={handleInputChange}
         >
           {Object.keys(taskStatus).map((item: string) => (
             <option value={taskStatus[item]} key={`task-status-${item}`}>
@@ -65,7 +66,7 @@ const TaskForm = ({ onSendTask }: Props) => {
 
 const mapStateToProps = (state: InitialState, ownProps: Props) => ownProps;
 const mapDispatchToProps = dispatch => ({
-  onSendTask: (value: any): void => {
+  onSendTask: (value: typeof task): void => {
     dispatch(Operation.addTask(value));
   },
 });

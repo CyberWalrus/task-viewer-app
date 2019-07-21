@@ -6,11 +6,10 @@ import {
 } from '../constants/task-status';
 
 const ActionType = {
-  ADD_TASK: 'ADD_TASK',
-  CHANGE_TASK: 'CHANGE_TASK',
-  DELETE_TASK: 'DELETE_TASK',
-  CHANGE_ISOPEN: 'CHANGE_ISOPEN',
-  CHANGE_FILTER: 'CHANGE_FILTER',
+  SET_TASKS: 'SET_TASKS',
+  SET_ISOPEN: 'SET_ISOPEN',
+  SET_FILTER: 'SET_FILTER',
+  INC_TASK_COUNT: 'INC_TASK_COUNT',
 };
 
 type Task = {
@@ -23,6 +22,7 @@ type Task = {
 };
 type InitialState = {
   tasks: Array<Task>,
+  taskCount: number,
   task: Task,
   form: {
     isAdd: boolean,
@@ -31,14 +31,15 @@ type InitialState = {
   filter: TaskStatus,
 };
 
-type AddTask = { type: typeof ActionType.ADD_TASK, payload: Task };
-type ChangeTask = { type: typeof ActionType.CHANGE_TASK, payload: Task };
-type ChangeIsOpen = { type: typeof ActionType.CHANGE_ISOPEN, payload: boolean };
-type ChangeFilter = { type: typeof ActionType.CHANGE_FILTER, payload: TaskStatus };
-type Action = AddTask | ChangeTask | ChangeIsOpen | ChangeFilter;
+type SetTasks = { type: typeof ActionType.SET_TASKS, payload: Array<Task> };
+type SetIsOpen = { type: typeof ActionType.SET_ISOPEN, payload: boolean };
+type SetFilter = { type: typeof ActionType.SET_FILTER, payload: TaskStatus };
+type IncrementTaskCount = { type: typeof ActionType.INC_TASK_COUNT };
+type Action = SetTasks | SetIsOpen | SetFilter | IncrementTaskCount;
 
 const initialState: InitialState = {
   tasks: [],
+  taskCount: 0,
   task: {},
   form: {
     isAdd: true,
@@ -48,49 +49,52 @@ const initialState: InitialState = {
 };
 
 const ActionCreator = {
-  addTask: (task: Task): AddTask => ({
-    type: ActionType.ADD_TASK,
-    payload: task,
+  setTasks: (tasks: Array<Task>): SetTasks => ({
+    type: ActionType.SET_TASKS,
+    payload: tasks,
   }),
-  changeTask: (task: Task): ChangeTask => ({
-    type: ActionType.CHANGE_TASK,
-    payload: task,
-  }),
-  changeIsOpen: (value: boolean): ChangeIsOpen => ({
-    type: ActionType.CHANGE_ISOPEN,
+  setIsOpen: (value: boolean): SetIsOpen => ({
+    type: ActionType.SET_ISOPEN,
     payload: value,
   }),
-  changeFilter: (value: TaskStatus): ChangeFilter => ({
-    type: ActionType.CHANGE_FILTER,
+  setFilter: (value: TaskStatus): SetFilter => ({
+    type: ActionType.SET_FILTER,
     payload: value,
+  }),
+  incrementTaskCount: (): IncrementTaskCount => ({
+    type: ActionType.INC_TASK_COUNT,
   }),
 };
 
 const Operation = {
-  addTask: (value: any) => (dispatch: any): void => {
+  addTask: (value: any) => (dispatch: any, _getState: () => InitialState): void => {
+    const { tasks, taskCount } = _getState();
+    const taskNew = tasks.slice(0);
     console.log(value);
     const task: Task = {
-      id: 1,
+      id: taskCount + 1,
       name: 'test',
       text: 'test',
       status: taskStatus.NORMAL,
       dateTerm: new Date(),
       dateEnd: new Date(),
     };
-    dispatch(ActionCreator.addTask(task));
+    taskNew.push(task);
+    dispatch(ActionCreator.incrementTaskCount());
+    dispatch(ActionCreator.setTasks(taskNew));
   },
 };
 
 const reducer = (state: InitialState = initialState, action: Action) => {
   switch (action.type) {
-    case ActionType.ADD_TASK:
+    case ActionType.SET_TASKS:
       return { ...state, tasks: action.payload };
-    case ActionType.CHANGE_TASK:
-      return { ...state };
-    case ActionType.CHANGE_ISOPEN:
+    case ActionType.SET_ISOPEN:
       return { ...state, form: { isOpen: action.payload } };
-    case ActionType.CHANGE_FILTER:
+    case ActionType.SET_FILTER:
       return { ...state, filter: action.payload };
+    case ActionType.INC_TASK_COUNT:
+      return { ...state, taskCount: state.taskCount + 1 };
     default:
       return state;
   }
