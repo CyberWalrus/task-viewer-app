@@ -1,6 +1,7 @@
 // @flow
 import type { FilterStatus } from '../constants/status';
 import type { Task } from '../constants/task';
+import { TASK_ALL } from '../constants/status';
 
 const ActionType = {
   SET_TASKS: 'SET_TASKS',
@@ -32,7 +33,7 @@ const initialState: InitialState = {
     isAdd: true,
     isOpen: false,
   },
-  filter: 'TASK_ALL',
+  filter: TASK_ALL,
 };
 
 const ActionCreator = {

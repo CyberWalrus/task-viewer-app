@@ -14,7 +14,7 @@ const Content = ({ tasks }: Props) => (
   <section className="content">
     <h2 className="content__title">Задачи</h2>
     <div className="content__task-list">
-      {tasks && tasks.map((item: TypeTask) => <Task key={`task-${item.id}`} />)}
+      {tasks && tasks.map((item: TypeTask) => <Task key={`task-${item.id}`} task={item} />)}
     </div>
     <div className="content__show-more">
       <button type="button" className="content__btn">

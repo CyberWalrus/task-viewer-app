@@ -8,7 +8,7 @@ import { reducer } from './store/store';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: [],
+  whitelist: ['tasks', 'taskCount'],
 };
 const reducers = persistReducer(persistConfig, reducer);
 const middlewares = [thunk];

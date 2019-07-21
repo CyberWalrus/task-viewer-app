@@ -1,4 +1,5 @@
 // @flow
+
 export type TaskStatus = 'NORMAL' | 'IMPORTANT' | 'VERY_IMPORTANT';
 export type FilterStatus = TaskStatus | 'TASK_ALL';
 const taskStatus: Array<{ value: TaskStatus, label: string }> = [
@@ -6,7 +7,7 @@ const taskStatus: Array<{ value: TaskStatus, label: string }> = [
   { value: 'IMPORTANT', label: 'Важная' },
   { value: 'VERY_IMPORTANT', label: 'Очень Важная' },
 ];
-
+const TASK_ALL = 'TASK_ALL';
 const filterStatus: Array<{
   value: FilterStatus,
   label: string,
@@ -17,4 +18,4 @@ const filterStatus: Array<{
   { value: 'VERY_IMPORTANT', label: 'Очень Важная' },
 ];
 
-export { taskStatus, filterStatus };
+export { taskStatus, filterStatus, TASK_ALL };
