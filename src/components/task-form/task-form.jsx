@@ -10,18 +10,27 @@ import {
   inputName, inputText, inputDateTerm, inputDateEnd,
 } from '../../constants/input';
 import { Operation } from '../../store/store';
+import { getFormId, getTasks } from '../../store/selector';
 import { taskStatus } from '../../constants/status';
 import task from '../../constants/task';
 
 type Props = {
+  formId: number,
+  tasks: Array<Task>,
   onSendTask: (task: Task) => void,
+  onDeleteTask: (id: number) => void,
+  onCloseForm: (isOpen: boolean) => void,
 };
 
-
-const TaskForm = ({ onSendTask }: Props) => {
+const TaskForm = ({
+  onSendTask, formId, tasks, onDeleteTask, onCloseForm,
+}: Props) => {
   const {
     inputs, handleInputChange, handleSelectChange, handleSubmit,
-  } = useTaskForm(task, () => onSendTask(inputs));
+  } = useTaskForm(
+    formId ? tasks.find(item => item.id === formId) : task,
+    () => onSendTask(inputs),
+  );
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
@@ -32,13 +41,13 @@ const TaskForm = ({ onSendTask }: Props) => {
           </button>
         </div>
         <div className="task-form__container-delete">
-          <button type="button" className="task-form__btn-delete">
+          <button type="button" className="task-form__btn-delete" onClick={() => onDeleteTask(inputs.id)}>
             delete
           </button>
         </div>
-        <h3 className="task-form__title">Add task</h3>
+        <h3 className="task-form__title">{formId ? `Задача №${formId}` : 'Новая Задача'}</h3>
         <div className="task-form__container-close">
-          <button type="button" className="task-form__btn-close">
+          <button type="button" className="task-form__btn-close" onClick={() => onCloseForm(false)}>
             close
           </button>
         </div>
@@ -59,10 +68,20 @@ const TaskForm = ({ onSendTask }: Props) => {
   );
 };
 
-const mapStateToProps = (state: InitialState, ownProps: Props) => ownProps;
+const mapStateToProps = (state: InitialState, ownProps: Props) => ({
+  ...ownProps,
+  formId: getFormId(state),
+  tasks: getTasks(state),
+});
 const mapDispatchToProps = dispatch => ({
   onSendTask: (value: Task): void => {
     dispatch(Operation.addTask(value));
+  },
+  onDeleteTask: (id: number): void => {
+    dispatch(Operation.deleteTask(id));
+  },
+  onCloseForm: (isOpen: boolean): void => {
+    dispatch(Operation.changeStateForm(isOpen));
   },
 });
 

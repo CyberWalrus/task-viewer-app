@@ -18,7 +18,6 @@ const App = ({ isOpen }: Props) => (
       <Content />
     </main>
     <Footer />
-    {isOpen.toString()}
     {isOpen ? <TaskForm /> : <Fragment />}
   </Fragment>
 );

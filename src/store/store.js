@@ -7,32 +7,30 @@ const ActionType = {
   SET_TASKS: 'SET_TASKS',
   SET_ISOPEN: 'SET_ISOPEN',
   SET_FILTER: 'SET_FILTER',
+  SET_FORM_ID: 'SET_FORM_ID',
   INC_TASK_COUNT: 'INC_TASK_COUNT',
 };
 
 export type InitialState = {
   tasks: Array<Task>,
   taskCount: number,
-  form: {
-    isAdd: boolean,
-    isOpen: boolean,
-  },
+  formId: number,
+  isOpen: boolean,
   filter: FilterStatus,
 };
 
 type SetTasks = { type: typeof ActionType.SET_TASKS, payload: Array<Task> };
 type SetIsOpen = { type: typeof ActionType.SET_ISOPEN, payload: boolean };
 type SetFilter = { type: typeof ActionType.SET_FILTER, payload: FilterStatus };
+type SetFormId = { type: typeof ActionType.SET_FORM_ID, payload: number };
 type IncrementTaskCount = { type: typeof ActionType.INC_TASK_COUNT };
-type Action = SetTasks | SetIsOpen | SetFilter | IncrementTaskCount;
+type Action = SetTasks | SetIsOpen | SetFilter | SetFormId | IncrementTaskCount;
 
 const initialState: InitialState = {
   tasks: [],
   taskCount: 0,
-  form: {
-    isAdd: true,
-    isOpen: false,
-  },
+  formId: 0,
+  isOpen: false,
   filter: TASK_ALL,
 };
 
@@ -49,6 +47,10 @@ const ActionCreator = {
     type: ActionType.SET_FILTER,
     payload: value,
   }),
+  setFormId: (value: number): SetFormId => ({
+    type: ActionType.SET_FORM_ID,
+    payload: value,
+  }),
   incrementTaskCount: (): IncrementTaskCount => ({
     type: ActionType.INC_TASK_COUNT,
   }),
@@ -62,6 +64,19 @@ const Operation = {
     taskNew.push(task);
     dispatch(ActionCreator.incrementTaskCount());
     dispatch(ActionCreator.setTasks(taskNew));
+    dispatch(Operation.changeStateForm(false, 0));
+  },
+  deleteTask: (id: number) => (dispatch: any, _getState: () => InitialState): void => {
+    const { tasks } = _getState();
+    const taskNew = tasks.filter(item => item.id !== id);
+    dispatch(ActionCreator.setTasks(taskNew));
+    dispatch(Operation.changeStateForm(false, 0));
+  },
+  changeStateForm: (isOpen: boolean = true, id: ?number) => (dispatch: any): void => {
+    if (id || id === 0) {
+      dispatch(ActionCreator.setFormId(id));
+    }
+    dispatch(ActionCreator.setIsOpen(isOpen));
   },
 };
 
@@ -70,7 +85,9 @@ const reducer = (state: InitialState = initialState, action: Action) => {
     case ActionType.SET_TASKS:
       return { ...state, tasks: action.payload };
     case ActionType.SET_ISOPEN:
-      return { ...state, form: { isOpen: action.payload } };
+      return { ...state, isOpen: action.payload };
+    case ActionType.SET_FORM_ID:
+      return { ...state, formId: action.payload };
     case ActionType.SET_FILTER:
       return { ...state, filter: action.payload };
     case ActionType.INC_TASK_COUNT:
