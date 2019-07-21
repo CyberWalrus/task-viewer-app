@@ -8,10 +8,16 @@ type ReturnValues = {
       | SyntheticInputEvent<HTMLTextAreaElement>
       | SyntheticInputEvent<HTMLSelectElement>,
   ) => void,
-  inputs: { [string]: string },
+  handleSelectChange: (
+    name: string,
+  ) => (optionSelected: {
+    value: string,
+    label: string,
+  }) => void,
+  inputs: { [string]: any },
 };
-const useTaskForm = (state: { [string]: string }, callback: ?() => void): ReturnValues => {
-  const [inputs, setInputs] = useState<{ [string]: string }>(state);
+const useTaskForm = (state: any, callback: ?() => void): ReturnValues => {
+  const [inputs, setInputs] = useState(state);
 
   const handleSubmit = (event) => {
     if (event) {
@@ -23,14 +29,22 @@ const useTaskForm = (state: { [string]: string }, callback: ?() => void): Return
   };
   const handleInputChange = (event) => {
     event.persist();
-    setInputs((values: { [string]: string }) => ({
+    setInputs((values: { [string]: any }) => ({
       ...values,
       [event.target.name]: event.target.value,
+    }));
+  };
+  const handleSelectChange = name => (optionSelected) => {
+    const { value } = optionSelected;
+    setInputs((values: { [string]: any }) => ({
+      ...values,
+      [name]: value,
     }));
   };
   return {
     handleSubmit,
     handleInputChange,
+    handleSelectChange,
     inputs,
   };
 };

@@ -1,19 +1,20 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import type { Task as TypeTask } from '../../constants/task';
+import type { InitialState } from '../../store/store';
 import Task from '../task/task';
 import { getTasks } from '../../store/selector';
-import { initialState } from '../../store/store';
 
 type Props = {
-  tasks: typeof initialState.tasks,
+  tasks: Array<TypeTask>,
 };
 
 const Content = ({ tasks }: Props) => (
   <section className="content">
     <h2 className="content__title">Задачи</h2>
     <div className="content__task-list">
-      {tasks && tasks.map((item: typeof initialState.task) => <Task key={`task-${item.id}`} />)}
+      {tasks && tasks.map((item: TypeTask) => <Task key={`task-${item.id}`} />)}
     </div>
     <div className="content__show-more">
       <button type="button" className="content__btn">
@@ -23,7 +24,7 @@ const Content = ({ tasks }: Props) => (
   </section>
 );
 
-const mapStateToProps = (state: typeof initialState, ownProps: Props) => ({
+const mapStateToProps = (state: InitialState, ownProps: Props) => ({
   ...ownProps,
   tasks: getTasks(state),
 });

@@ -1,9 +1,6 @@
 // @flow
-import {
-  taskStatusFilter,
-  typeof TASK_ALL as TaskStatus,
-  taskStatus,
-} from '../constants/task-status';
+import type { FilterStatus } from '../constants/status';
+import type { Task } from '../constants/task';
 
 const ActionType = {
   SET_TASKS: 'SET_TASKS',
@@ -12,40 +9,30 @@ const ActionType = {
   INC_TASK_COUNT: 'INC_TASK_COUNT',
 };
 
-type Task = {
-  id: number,
-  name: string,
-  text: string,
-  status: TaskStatus,
-  dateTerm: ?Date,
-  dateEnd: ?Date,
-};
-type InitialState = {
+export type InitialState = {
   tasks: Array<Task>,
   taskCount: number,
-  task: Task,
   form: {
     isAdd: boolean,
     isOpen: boolean,
   },
-  filter: TaskStatus,
+  filter: FilterStatus,
 };
 
 type SetTasks = { type: typeof ActionType.SET_TASKS, payload: Array<Task> };
 type SetIsOpen = { type: typeof ActionType.SET_ISOPEN, payload: boolean };
-type SetFilter = { type: typeof ActionType.SET_FILTER, payload: TaskStatus };
+type SetFilter = { type: typeof ActionType.SET_FILTER, payload: FilterStatus };
 type IncrementTaskCount = { type: typeof ActionType.INC_TASK_COUNT };
 type Action = SetTasks | SetIsOpen | SetFilter | IncrementTaskCount;
 
 const initialState: InitialState = {
   tasks: [],
   taskCount: 0,
-  task: {},
   form: {
     isAdd: true,
     isOpen: false,
   },
-  filter: taskStatusFilter.TASK_ALL,
+  filter: 'TASK_ALL',
 };
 
 const ActionCreator = {
@@ -57,7 +44,7 @@ const ActionCreator = {
     type: ActionType.SET_ISOPEN,
     payload: value,
   }),
-  setFilter: (value: TaskStatus): SetFilter => ({
+  setFilter: (value: FilterStatus): SetFilter => ({
     type: ActionType.SET_FILTER,
     payload: value,
   }),
@@ -67,18 +54,10 @@ const ActionCreator = {
 };
 
 const Operation = {
-  addTask: (value: any) => (dispatch: any, _getState: () => InitialState): void => {
+  addTask: (value: Task) => (dispatch: any, _getState: () => InitialState): void => {
     const { tasks, taskCount } = _getState();
     const taskNew = tasks.slice(0);
-    console.log(value);
-    const task: Task = {
-      id: taskCount + 1,
-      name: 'test',
-      text: 'test',
-      status: taskStatus.NORMAL,
-      dateTerm: new Date(),
-      dateEnd: new Date(),
-    };
+    const task: Task = { ...value, id: taskCount + 1 };
     taskNew.push(task);
     dispatch(ActionCreator.incrementTaskCount());
     dispatch(ActionCreator.setTasks(taskNew));

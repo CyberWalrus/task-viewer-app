@@ -1,25 +1,26 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import type { FilterStatus } from '../../constants/status';
 import { ActionCreator, typeof initialState as InitialState } from '../../store/store';
-import { taskStatusFilter, typeof TASK_ALL as TaskStatus } from '../../constants/task-status';
+import { filterStatus } from '../../constants/status';
 
 type Props = {
   onChangeIsOpen: (value: boolean) => void,
-  onChangeFilter: (value: TaskStatus) => void,
+  onChangeFilter: (value: FilterStatus) => void,
 };
 const Header = ({ onChangeIsOpen, onChangeFilter }: Props) => (
   <header className="page-header">
     <nav className="filter">
       <ul className="filter__list">
-        {Object.keys(taskStatusFilter).map((item: string) => (
-          <li key={`filter-${item}`} className="filter__item">
+        {filterStatus.map(item => (
+          <li key={`filter-${item.value}`} className="filter__item">
             <button
               type="button"
               className="filter__link"
-              onClick={() => onChangeFilter(taskStatusFilter[item])}
+              onClick={() => onChangeFilter(item.value)}
             >
-              {taskStatusFilter[item]}
+              {item.label}
             </button>
           </li>
         ))}
@@ -40,7 +41,7 @@ const mapDispatchToProps = dispatch => ({
   onChangeIsOpen: (value: boolean): void => {
     dispatch(ActionCreator.setIsOpen(value));
   },
-  onChangeFilter: (value: TaskStatus): void => {
+  onChangeFilter: (value: FilterStatus): void => {
     dispatch(ActionCreator.setFilter(value));
   },
 });

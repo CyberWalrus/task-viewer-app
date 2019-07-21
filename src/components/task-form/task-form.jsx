@@ -1,28 +1,27 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import Select from 'react-select';
+import type { Task } from '../../constants/task';
+import type { InitialState } from '../../store/store';
 import useTaskForm from '../../hooks/use-task-form/use-task-form';
 import TaskInput from '../task-input/task-input';
 import {
   inputName, inputText, inputDateTerm, inputDateEnd,
 } from '../../constants/input';
-import { Operation, typeof initialState as InitialState, initialState } from '../../store/store';
-import { taskStatus } from '../../constants/task-status';
+import { Operation } from '../../store/store';
+import { taskStatus } from '../../constants/status';
+import task from '../../constants/task';
 
 type Props = {
-  onSendTask: (task: typeof initialState.task | any) => void,
+  onSendTask: (task: Task) => void,
 };
 
-const task = {
-  name: '',
-  text: '',
-  status: taskStatus.NORMAL,
-  dateTerm: '',
-  dateEnd: '',
-};
 
 const TaskForm = ({ onSendTask }: Props) => {
-  const { inputs, handleInputChange, handleSubmit } = useTaskForm(task, () => onSendTask(inputs));
+  const {
+    inputs, handleInputChange, handleSelectChange, handleSubmit,
+  } = useTaskForm(task, () => onSendTask(inputs));
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
@@ -46,16 +45,12 @@ const TaskForm = ({ onSendTask }: Props) => {
       </div>
       <TaskInput option={inputName} value={inputs} onChangeValue={handleInputChange} />
       <div className="task-form__container">
-        <select
-          className="task-form__select-status"
+        <Select
           name="status"
-        >
-          {Object.keys(taskStatus).map((item: string) => (
-            <option value={taskStatus[item]} key={`task-status-${item}`}>
-              {taskStatus[item]}
-            </option>
-          ))}
-        </select>
+          value={taskStatus.find(item => item.value === inputs.status)}
+          onChange={(value: any) => handleSelectChange('status')(value)}
+          options={taskStatus}
+        />
       </div>
       <TaskInput option={inputDateTerm} value={inputs} onChangeValue={handleInputChange} />
       <TaskInput option={inputDateEnd} value={inputs} onChangeValue={handleInputChange} />
@@ -66,7 +61,7 @@ const TaskForm = ({ onSendTask }: Props) => {
 
 const mapStateToProps = (state: InitialState, ownProps: Props) => ownProps;
 const mapDispatchToProps = dispatch => ({
-  onSendTask: (value: typeof task): void => {
+  onSendTask: (value: Task): void => {
     dispatch(Operation.addTask(value));
   },
 });
