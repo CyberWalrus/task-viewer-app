@@ -6,11 +6,15 @@ import TaskInput from '../task-input/task-input';
 import {
   inputName, inputText, inputDateTerm, inputDateEnd,
 } from '../../constants/input';
-import { ActionCreator, typeof initialState as InitialState } from '../../store/store';
+import {
+  Operation,
+  typeof initialState as InitialState,
+  initialState,
+} from '../../store/store';
 import { taskStatus } from '../../constants/task-status';
 
 type Props = {
-  onSendTask: (task: any) => void,
+  onSendTask: (task: typeof initialState.task | any) => void,
 };
 
 const TaskForm = ({ onSendTask }: Props) => {
@@ -22,7 +26,7 @@ const TaskForm = ({ onSendTask }: Props) => {
     <form className="task-form" onSubmit={handleSubmit}>
       <div className="task-form__header">
         <div className="task-form__container-submit">
-          <button type="button" className="task-form__btn-submit">
+          <button type="button" className="task-form__btn-submit" onClick={handleSubmit}>
             add
           </button>
         </div>
@@ -62,7 +66,7 @@ const TaskForm = ({ onSendTask }: Props) => {
 const mapStateToProps = (state: InitialState, ownProps: Props) => ownProps;
 const mapDispatchToProps = dispatch => ({
   onSendTask: (value: any): void => {
-    dispatch(ActionCreator.addTask(value));
+    dispatch(Operation.addTask(value));
   },
 });
 

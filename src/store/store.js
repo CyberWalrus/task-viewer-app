@@ -1,5 +1,9 @@
 // @flow
-import { taskStatusFilter, typeof TASK_ALL as TaskStatus } from '../constants/task-status';
+import {
+  taskStatusFilter,
+  typeof TASK_ALL as TaskStatus,
+  taskStatus,
+} from '../constants/task-status';
 
 const ActionType = {
   ADD_TASK: 'ADD_TASK',
@@ -62,6 +66,21 @@ const ActionCreator = {
   }),
 };
 
+const Operation = {
+  addTask: (value: any) => (dispatch: any): void => {
+    console.log(value);
+    const task: Task = {
+      id: 1,
+      name: 'test',
+      text: 'test',
+      status: taskStatus.NORMAL,
+      dateTerm: new Date(),
+      dateEnd: new Date(),
+    };
+    dispatch(ActionCreator.addTask(task));
+  },
+};
+
 const reducer = (state: InitialState = initialState, action: Action) => {
   switch (action.type) {
     case ActionType.ADD_TASK:
@@ -78,5 +97,5 @@ const reducer = (state: InitialState = initialState, action: Action) => {
 };
 
 export {
-  ActionCreator, ActionType, reducer, initialState,
+  ActionCreator, ActionType, reducer, initialState, Operation,
 };
