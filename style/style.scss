@@ -5,7 +5,8 @@ body {
   font-family: monospace;
   color: var(--color-text);
   min-inline-size: 100vw;
-  min-block-size: 100vh;
+  min-block-size: 90vh;
+  max-inline-size: 100vw;
   background: linear-gradient(
       0deg,
       var(--color-opacity) 0,
