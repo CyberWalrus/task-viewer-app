@@ -22,7 +22,7 @@ $color-header: rgba(1, 186, 239, 1);
 :root {
   --color-text: #{$color-text};
   --color-text-dop: #{$color-text-dop};
-  --color-base: #{$color-base};
+  @include defineColorOpacity(--color-base, $color-base);
   @include defineColorOpacity(--color-dop, $color-dop);
   --color-accept: #{$color-accept};
   --color-header: #{$color-header};

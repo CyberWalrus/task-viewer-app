@@ -15,6 +15,7 @@ const getTasks = (state: InitialState, isFilter: ?boolean = false) => {
   return state.tasks;
 };
 const getFilter = (state: InitialState) => state.filter;
+const getIsVisibleButton = (state: InitialState) => state.showCount <= state.tasks.length;
 export {
-  getIsOpen, getTasks, getFormId, getFilter,
+  getIsOpen, getTasks, getFormId, getFilter, getIsVisibleButton,
 };

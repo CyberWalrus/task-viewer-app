@@ -10,7 +10,7 @@ const ActionType = {
   SET_FILTER: 'SET_FILTER',
   SET_FORM_ID: 'SET_FORM_ID',
   INC_TASK_COUNT: 'INC_TASK_COUNT',
-  INC_SHOW_COUNT: 'INC_TASK_COUNT',
+  INC_SHOW_COUNT: 'INC_SHOW_COUNT',
 };
 
 export type InitialState = {
@@ -27,7 +27,7 @@ type SetIsOpen = { type: typeof ActionType.SET_ISOPEN, payload: boolean };
 type SetFilter = { type: typeof ActionType.SET_FILTER, payload: FilterStatus };
 type SetFormId = { type: typeof ActionType.SET_FORM_ID, payload: number };
 type IncrementTaskCount = { type: typeof ActionType.INC_TASK_COUNT };
-type IncrementShowCount = { type: typeof ActionType.INC_TASK_COUNT, payload: number };
+type IncrementShowCount = { type: typeof ActionType.INC_SHOW_COUNT, payload: number };
 type Action =
   | SetTasks
   | SetIsOpen
@@ -65,8 +65,8 @@ const ActionCreator = {
   incrementTaskCount: (): IncrementTaskCount => ({
     type: ActionType.INC_TASK_COUNT,
   }),
-  IncrementShowCount: (value: number): IncrementShowCount => ({
-    type: ActionType.INC_TASK_COUNT,
+  incrementShowCount: (value: number): IncrementShowCount => ({
+    type: ActionType.INC_SHOW_COUNT,
     payload: value,
   }),
 };

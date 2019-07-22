@@ -9,13 +9,21 @@
   background: var(--color-header);
   border: 0.4rem solid var(--color-dop_15);
   border-radius: 1rem;
-  transition: border-color 0.2s;
+  transition: all 0.3s;
+  font-weight: bold;
   font-size: 120%;
   line-height: 3;
   text-align: center;
-  color: var(--color-base);
+  color: var(--color-base_75);
   cursor: pointer;
-  &:focus{
-    border-radius: 1rem;
+  opacity: 1;
+  visibility: visible;
+  &_hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  &:focus,
+  &:hover {
+    color: var(--color-base);
   }
 }
