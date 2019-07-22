@@ -19,13 +19,13 @@ const inputText: OptionInput = {
 };
 const inputDateTerm: OptionInput = {
   title: 'Дата срока',
-  type: 'date',
+  type: 'datetime-local',
   cssClass: 'task-form__input-date',
   name: 'dateTerm',
 };
 const inputDateEnd: OptionInput = {
   title: 'Дата выполнения',
-  type: 'date',
+  type: 'datetime-local',
   cssClass: 'task-form__input-date',
   name: 'dateEnd',
 };

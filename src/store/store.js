@@ -3,12 +3,14 @@ import type { FilterStatus } from '../constants/status';
 import type { Task } from '../constants/task';
 import { TASK_ALL } from '../constants/status';
 
+export const DEFAULT_COUNT = 4;
 const ActionType = {
   SET_TASKS: 'SET_TASKS',
   SET_ISOPEN: 'SET_ISOPEN',
   SET_FILTER: 'SET_FILTER',
   SET_FORM_ID: 'SET_FORM_ID',
   INC_TASK_COUNT: 'INC_TASK_COUNT',
+  INC_SHOW_COUNT: 'INC_TASK_COUNT',
 };
 
 export type InitialState = {
@@ -17,6 +19,7 @@ export type InitialState = {
   formId: number,
   isOpen: boolean,
   filter: FilterStatus,
+  showCount: number,
 };
 
 type SetTasks = { type: typeof ActionType.SET_TASKS, payload: Array<Task> };
@@ -24,7 +27,14 @@ type SetIsOpen = { type: typeof ActionType.SET_ISOPEN, payload: boolean };
 type SetFilter = { type: typeof ActionType.SET_FILTER, payload: FilterStatus };
 type SetFormId = { type: typeof ActionType.SET_FORM_ID, payload: number };
 type IncrementTaskCount = { type: typeof ActionType.INC_TASK_COUNT };
-type Action = SetTasks | SetIsOpen | SetFilter | SetFormId | IncrementTaskCount;
+type IncrementShowCount = { type: typeof ActionType.INC_TASK_COUNT, payload: number };
+type Action =
+  | SetTasks
+  | SetIsOpen
+  | SetFilter
+  | SetFormId
+  | IncrementTaskCount
+  | IncrementShowCount;
 
 const initialState: InitialState = {
   tasks: [],
@@ -32,6 +42,7 @@ const initialState: InitialState = {
   formId: 0,
   isOpen: false,
   filter: TASK_ALL,
+  showCount: DEFAULT_COUNT,
 };
 
 const ActionCreator = {
@@ -53,6 +64,10 @@ const ActionCreator = {
   }),
   incrementTaskCount: (): IncrementTaskCount => ({
     type: ActionType.INC_TASK_COUNT,
+  }),
+  IncrementShowCount: (value: number): IncrementShowCount => ({
+    type: ActionType.INC_TASK_COUNT,
+    payload: value,
   }),
 };
 
@@ -92,6 +107,8 @@ const reducer = (state: InitialState = initialState, action: Action) => {
       return { ...state, filter: action.payload };
     case ActionType.INC_TASK_COUNT:
       return { ...state, taskCount: state.taskCount + 1 };
+    case ActionType.INC_SHOW_COUNT:
+      return { ...state, showCount: state.taskCount + action.payload };
     default:
       return state;
   }

@@ -3,11 +3,12 @@
   "prettier.eslintIntegration": true,
   "files.eol": "\n",
   "cSpell.words": [
-    "persistor",
-    "middlewares",
-    "ISOPEN",
     "Andrey",
+    "ISOPEN",
     "Pakhomov",
-    "devtools"
+    "datetime",
+    "devtools",
+    "middlewares",
+    "persistor"
   ]
 }

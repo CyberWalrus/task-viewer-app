@@ -1,0 +1,9 @@
+@import './__footer/page__footer.scss';
+@import './__header/page__header.scss';
+@import './__main/page__main.scss';
+.page {
+  inline-size: 100vw;
+  max-inline-size: 100vw;
+  display: flex;
+  flex-direction: column;
+}

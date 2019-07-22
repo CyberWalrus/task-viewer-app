@@ -14,7 +14,7 @@ type Props = {
 const App = ({ isOpen }: Props) => (
   <Fragment>
     <Header />
-    <main className="page-main">
+    <main className="page__main">
       <Content />
     </main>
     <Footer />

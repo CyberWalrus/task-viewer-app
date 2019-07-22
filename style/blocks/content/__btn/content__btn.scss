@@ -1,0 +1,21 @@
+.content__btn {
+  margin-block-start: 2rem;
+  display: block;
+  text-transform: uppercase;
+  width: 100%;
+  padding-inline-start: 2rem;
+  padding-inline-end: 2rem;
+  background: none;
+  background: var(--color-header);
+  border: 0.4rem solid var(--color-dop_15);
+  border-radius: 1rem;
+  transition: border-color 0.2s;
+  font-size: 120%;
+  line-height: 3;
+  text-align: center;
+  color: var(--color-base);
+  cursor: pointer;
+  &:focus{
+    border-radius: 1rem;
+  }
+}

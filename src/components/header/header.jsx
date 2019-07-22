@@ -10,7 +10,7 @@ type Props = {
   onChangeFilter: (value: FilterStatus) => void,
 };
 const Header = ({ onChangeIsOpen, onChangeFilter }: Props) => (
-  <header className="page-header">
+  <header className="page__header">
     <nav className="filter">
       <ul className="filter__list">
         {filterStatus.map(item => (

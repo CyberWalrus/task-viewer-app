@@ -13,8 +13,11 @@ type Props = {
 };
 const TaskInput = ({ option, value, onChangeValue }: Props) => (
   <div className="task-form__container">
-    {option.title}
+    <label className="task-form__label" htmlFor={`task-${option.name}`}>
+      {option.title}
+    </label>
     <input
+      id={`task-${option.name}`}
       type={option.type}
       className={option.cssClass}
       name={option.name}
