@@ -2,10 +2,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import type { Task as TypeTask } from '../../constants/task';
-import type { InitialState } from '../../store/store';
+import type { State } from '../../store/store';
 import Task from '../task/task';
 import { ActionCreator, DEFAULT_COUNT } from '../../store/store';
-import { getTasks, getIsVisibleButton } from '../../store/selector';
+import { getTasksFiltered, getIsVisibleButton } from '../../store/selector';
 
 type Props = {
   tasks: Array<TypeTask>,
@@ -30,9 +30,9 @@ const Content = ({ tasks, isVisible, onShowMore }: Props) => (
   </section>
 );
 
-const mapStateToProps = (state: InitialState, ownProps: Props) => ({
+const mapStateToProps = (state: State, ownProps: Props) => ({
   ...ownProps,
-  tasks: getTasks(state, true),
+  tasks: getTasksFiltered(state),
   isVisible: getIsVisibleButton(state),
 });
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import type { Task as TypeTask } from '../../constants/task';
-import type { InitialState } from '../../store/store';
+import type { State } from '../../store/store';
 import { Operation } from '../../store/store';
 
 type Props = {
@@ -28,7 +28,7 @@ const Task = ({ task, onOpenForm }: Props) => (
   </div>
 );
 
-const mapStateToProps = (state: InitialState, ownProps: Props) => ownProps;
+const mapStateToProps = (state: State, ownProps: Props) => ownProps;
 const mapDispatchToProps = dispatch => ({
   onOpenForm: (isOpen: boolean, id: number): void => {
     dispatch(Operation.changeStateForm(isOpen, id));

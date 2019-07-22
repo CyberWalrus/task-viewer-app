@@ -1,11 +1,13 @@
 // @flow
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import type { ComponentType } from 'react';
 import { getIsOpen } from '../../store/selector';
 import Content from '../content/content';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import TaskForm from '../task-form/task-form';
+import type { State } from '../../store/store';
 
 type Props = {
   isOpen: boolean,
@@ -22,11 +24,13 @@ const App = ({ isOpen }: Props) => (
   </Fragment>
 );
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: State, ownProps: Props) => ({
   ...ownProps,
   isOpen: getIsOpen(state),
 });
 
 export { App };
 
-export default connect(mapStateToProps)(App);
+const exportedComponent: ComponentType<{}> = connect(mapStateToProps)(App);
+
+export default exportedComponent;

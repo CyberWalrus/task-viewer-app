@@ -13,7 +13,7 @@ const ActionType = {
   INC_SHOW_COUNT: 'INC_SHOW_COUNT',
 };
 
-export type InitialState = {
+export type State = {
   tasks: Array<Task>,
   taskCount: number,
   formId: number,
@@ -35,8 +35,13 @@ type Action =
   | SetFormId
   | IncrementTaskCount
   | IncrementShowCount;
+// eslint-disable-next-line
+export type Dispatch = (action: Action | ThunkAction | PromiseAction | Array<Action>) => any;
+type GetState = () => Object;
+type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
+type PromiseAction = Promise<Action>;
 
-const initialState: InitialState = {
+const initialState: State = {
   tasks: [],
   taskCount: 0,
   formId: 0,
@@ -72,7 +77,7 @@ const ActionCreator = {
 };
 
 const Operation = {
-  addTask: (value: Task) => (dispatch: any, _getState: () => InitialState): void => {
+  addTask: (value: Task): ThunkAction => (dispatch: Dispatch, _getState: () => State): void => {
     const { tasks, taskCount } = _getState();
     const taskNew = tasks.slice(0);
     const task: Task = { ...value, id: taskCount + 1 };
@@ -81,13 +86,15 @@ const Operation = {
     dispatch(ActionCreator.setTasks(taskNew));
     dispatch(Operation.changeStateForm(false, 0));
   },
-  deleteTask: (id: number) => (dispatch: any, _getState: () => InitialState): void => {
+  deleteTask: (id: number): ThunkAction => (dispatch: Dispatch, _getState: () => State): void => {
     const { tasks } = _getState();
     const taskNew = tasks.filter(item => item.id !== id);
     dispatch(ActionCreator.setTasks(taskNew));
     dispatch(Operation.changeStateForm(false, 0));
   },
-  changeStateForm: (isOpen: boolean = true, id: ?number) => (dispatch: any): void => {
+  changeStateForm: (isOpen: boolean = true, id: ?number): ThunkAction => (
+    dispatch: Dispatch,
+  ): void => {
     if (id || id === 0) {
       dispatch(ActionCreator.setFormId(id));
     }
@@ -95,7 +102,7 @@ const Operation = {
   },
 };
 
-const reducer = (state: InitialState = initialState, action: Action) => {
+const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case ActionType.SET_TASKS:
       return { ...state, tasks: action.payload };

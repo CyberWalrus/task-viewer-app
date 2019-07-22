@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 import type { Task } from '../../constants/task';
-import type { InitialState } from '../../store/store';
+import type { State, Dispatch } from '../../store/store';
 import useTaskForm from '../../hooks/use-task-form/use-task-form';
 import TaskInput from '../task-input/task-input';
 import {
@@ -68,12 +68,12 @@ const TaskForm = ({
   );
 };
 
-const mapStateToProps = (state: InitialState, ownProps: Props) => ({
+const mapStateToProps = (state: State, ownProps: Props) => ({
   ...ownProps,
   formId: getFormId(state),
   tasks: getTasks(state),
 });
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   onSendTask: (value: Task): void => {
     dispatch(Operation.addTask(value));
   },

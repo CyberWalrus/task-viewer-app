@@ -2,7 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import type { FilterStatus } from '../../constants/status';
-import { ActionCreator, typeof initialState as InitialState } from '../../store/store';
+import type { State } from '../../store/store';
+import { ActionCreator } from '../../store/store';
 import { filterStatus } from '../../constants/status';
 
 type Props = {
@@ -36,7 +37,7 @@ const Header = ({ onChangeIsOpen, onChangeFilter }: Props) => (
   </header>
 );
 
-const mapStateToProps = (state: InitialState, ownProps: Props) => ownProps;
+const mapStateToProps = (state: State, ownProps: Props) => ownProps;
 const mapDispatchToProps = dispatch => ({
   onChangeIsOpen: (value: boolean): void => {
     dispatch(ActionCreator.setIsOpen(value));
