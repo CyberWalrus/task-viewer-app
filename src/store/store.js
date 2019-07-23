@@ -1,7 +1,7 @@
 // @flow
 import type { FilterStatus } from '../constants/status';
 import type { Task } from '../constants/task';
-import { TASK_ALL } from '../constants/status';
+import { status } from '../constants/status';
 
 export const DEFAULT_COUNT = 4;
 const ActionType = {
@@ -11,6 +11,7 @@ const ActionType = {
   SET_FORM_ID: 'SET_FORM_ID',
   INC_TASK_COUNT: 'INC_TASK_COUNT',
   INC_SHOW_COUNT: 'INC_SHOW_COUNT',
+  RESET_SHOW_COUNT: 'SET_SHOW_COUNT',
 };
 
 export type State = {
@@ -28,13 +29,15 @@ type SetFilter = { type: typeof ActionType.SET_FILTER, payload: FilterStatus };
 type SetFormId = { type: typeof ActionType.SET_FORM_ID, payload: number };
 type IncrementTaskCount = { type: typeof ActionType.INC_TASK_COUNT };
 type IncrementShowCount = { type: typeof ActionType.INC_SHOW_COUNT, payload: number };
+type ResetShowCount = { type: typeof ActionType.RESET_SHOW_COUNT };
 type Action =
   | SetTasks
   | SetIsOpen
   | SetFilter
   | SetFormId
   | IncrementTaskCount
-  | IncrementShowCount;
+  | IncrementShowCount
+  | ResetShowCount;
 // eslint-disable-next-line
 export type Dispatch = (action: Action | ThunkAction | PromiseAction | Array<Action>) => any;
 type GetState = () => Object;
@@ -46,7 +49,7 @@ const initialState: State = {
   taskCount: 0,
   formId: 0,
   isOpen: false,
-  filter: TASK_ALL,
+  filter: status.TASK_ALL,
   showCount: DEFAULT_COUNT,
 };
 
@@ -74,6 +77,9 @@ const ActionCreator = {
     type: ActionType.INC_SHOW_COUNT,
     payload: value,
   }),
+  resetShowCount: (): ResetShowCount => ({
+    type: ActionType.RESET_SHOW_COUNT,
+  }),
 };
 
 const Operation = {
@@ -100,6 +106,12 @@ const Operation = {
     }
     dispatch(ActionCreator.setIsOpen(isOpen));
   },
+  changeFilter: (filter: FilterStatus): ThunkAction => (
+    dispatch: Dispatch,
+  ): void => {
+    dispatch(ActionCreator.setFilter(filter));
+    dispatch(ActionCreator.resetShowCount());
+  },
 };
 
 const reducer = (state: State = initialState, action: Action) => {
@@ -116,6 +128,8 @@ const reducer = (state: State = initialState, action: Action) => {
       return { ...state, taskCount: state.taskCount + 1 };
     case ActionType.INC_SHOW_COUNT:
       return { ...state, showCount: state.taskCount + action.payload };
+    case ActionType.RESET_SHOW_COUNT:
+      return { ...state, showCount: DEFAULT_COUNT };
     default:
       return state;
   }

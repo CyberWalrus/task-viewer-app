@@ -1,0 +1,15 @@
+.task-form__input-text {
+  align-items: center;
+  background-color: var(--color-base);
+  border: 0.2rem solid var(--color-dop_15);
+  border-radius: 0.5rem;
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  min-height: 2rem;
+  outline: 0;
+  position: relative;
+  transition: all 0.3s;
+  box-sizing: border-box;
+}

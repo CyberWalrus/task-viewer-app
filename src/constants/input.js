@@ -13,7 +13,7 @@ const inputName: OptionInput = {
 };
 const inputText: OptionInput = {
   title: 'Описание',
-  type: 'text',
+  type: 'textarea',
   cssClass: 'task-form__input-text',
   name: 'text',
 };

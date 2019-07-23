@@ -56,6 +56,7 @@ const TaskForm = ({
       <div className="task-form__container">
         <Select
           name="status"
+          className="task-form__input-list"
           value={taskStatus.find(item => item.value === inputs.status)}
           onChange={(value: any) => handleSelectChange('status')(value)}
           options={taskStatus}

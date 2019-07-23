@@ -1,0 +1,8 @@
+.task-form__input-list {
+  min-inline-size: 15rem;
+  max-inline-size: 25rem;
+  &>div{
+    inline-size: 100%;
+    max-inline-size: 100%;
+  }
+}

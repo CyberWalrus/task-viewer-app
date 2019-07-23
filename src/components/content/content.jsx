@@ -2,17 +2,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import type { Task as TypeTask } from '../../constants/task';
-import type { State } from '../../store/store';
+import type { State, Dispatch } from '../../store/store';
 import Task from '../task/task';
 import { ActionCreator, DEFAULT_COUNT } from '../../store/store';
-import { getTasksFiltered, getIsVisibleButton } from '../../store/selector';
+import { getTasksFiltered, getShowCount } from '../../store/selector';
 
 type Props = {
   tasks: Array<TypeTask>,
-  isVisible: boolean,
+  showCount: number,
   onShowMore: (value: number) => void,
 };
-const Content = ({ tasks, isVisible, onShowMore }: Props) => (
+const Content = ({ tasks, showCount, onShowMore }: Props) => (
   <section className="content">
     <h2 className="content__title">Задачи</h2>
     <div className="content__task-list">
@@ -21,7 +21,7 @@ const Content = ({ tasks, isVisible, onShowMore }: Props) => (
     <div className="content__show-more">
       <button
         type="button"
-        className={`content__btn${isVisible ? '' : ' content__btn_hidden'}`}
+        className={`content__btn${showCount <= tasks.length ? '' : ' content__btn_hidden'}`}
         onClick={() => onShowMore(DEFAULT_COUNT)}
       >
         Показать ещё
@@ -33,10 +33,10 @@ const Content = ({ tasks, isVisible, onShowMore }: Props) => (
 const mapStateToProps = (state: State, ownProps: Props) => ({
   ...ownProps,
   tasks: getTasksFiltered(state),
-  isVisible: getIsVisibleButton(state),
+  showCount: getShowCount(state),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   onShowMore: (value: number): void => {
     dispatch(ActionCreator.incrementShowCount(value));
   },

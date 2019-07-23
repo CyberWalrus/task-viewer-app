@@ -18,6 +18,11 @@ $color-base: rgba(251, 251, 255, 1);
 $color-dop: rgba(11, 79, 108, 1);
 $color-accept: rgba(32, 191, 85, 1);
 $color-header: rgba(1, 186, 239, 1);
+$color-task-normal: rgb(172, 172, 172);
+$color-task-important: rgba(253, 231, 76, 1);
+$color-task-very-important: rgba(250, 121, 33, 1);
+$color-task-alert: rgba(229, 89, 52, 1);
+$color-task-complete: rgba(155, 197, 61, 1);
 
 :root {
   --color-text: #{$color-text};
@@ -26,5 +31,10 @@ $color-header: rgba(1, 186, 239, 1);
   @include defineColorOpacity(--color-dop, $color-dop);
   --color-accept: #{$color-accept};
   --color-header: #{$color-header};
+  --color-task-normal: #{$color-task-normal};
+  --color-task-important: #{$color-task-important};
+  --color-task-very-important: #{$color-task-very-important};
+  --color-task-alert: #{$color-task-alert};
+  --color-task-complete: #{$color-task-complete};
   --color-opacity: rgba(0, 0, 0, 0);
 }

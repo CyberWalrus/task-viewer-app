@@ -8,6 +8,7 @@ export type Task = {
   status: TaskStatus,
   dateTerm: ?string,
   dateEnd: ?string,
+  isComplete: boolean,
 };
 
 const task: Task = {
@@ -17,6 +18,7 @@ const task: Task = {
   status: 'NORMAL',
   dateTerm: '',
   dateEnd: '',
+  isComplete: false,
 };
 
 export default task;

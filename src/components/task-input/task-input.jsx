@@ -16,14 +16,24 @@ const TaskInput = ({ option, value, onChangeValue }: Props) => (
     <label className="task-form__label" htmlFor={`task-${option.name}`}>
       {option.title}
     </label>
-    <input
-      id={`task-${option.name}`}
-      type={option.type}
-      className={option.cssClass}
-      name={option.name}
-      value={value[option.name]}
-      onChange={onChangeValue}
-    />
+    {option.type === 'textarea' ? (
+      <textarea
+        id={`task-${option.name}`}
+        className={option.cssClass}
+        name={option.name}
+        value={value[option.name]}
+        onChange={onChangeValue}
+      />
+    ) : (
+      <input
+        id={`task-${option.name}`}
+        type={option.type}
+        className={option.cssClass}
+        name={option.name}
+        value={value[option.name]}
+        onChange={onChangeValue}
+      />
+    )}
   </div>
 );
 

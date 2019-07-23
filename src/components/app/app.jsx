@@ -1,7 +1,6 @@
 // @flow
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import type { ComponentType } from 'react';
 import { getIsOpen } from '../../store/selector';
 import Content from '../content/content';
 import Header from '../header/header';
@@ -31,6 +30,4 @@ const mapStateToProps = (state: State, ownProps: Props) => ({
 
 export { App };
 
-const exportedComponent: ComponentType<{}> = connect(mapStateToProps)(App);
-
-export default exportedComponent;
+export default connect(mapStateToProps)(App);

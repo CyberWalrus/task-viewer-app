@@ -5,10 +5,24 @@
 @import "./__text/task__text.scss";
 @import "./__title/task__title.scss";
 
-.task{
+.task {
   inline-size: 100%;
   max-inline-size: 100%;
   min-block-size: 7rem;
   border-radius: 2rem;
-  background: var(--color-accept);
+  background: var(--color-task-normal);
+  &_type {
+    &_important {
+      background: var(--color-task-important);
+    }
+    &_very-important {
+      background: var(--color-task-very-important);
+    }
+    &_alert {
+      background: var(--color-task-alert);
+    }
+    &_complete {
+      background: var(--color-task-complete);
+    }
+  }
 }
