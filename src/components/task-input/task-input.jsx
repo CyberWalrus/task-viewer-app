@@ -31,6 +31,7 @@ const TaskInput = ({ option, value, onChangeValue }: Props) => (
         className={option.cssClass}
         name={option.name}
         value={value[option.name]}
+        defaultChecked={value[option.name]}
         onChange={onChangeValue}
       />
     )}

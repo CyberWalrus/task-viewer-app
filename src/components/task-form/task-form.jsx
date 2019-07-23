@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
 import type { Task } from '../../constants/task';
@@ -7,7 +7,11 @@ import type { State, Dispatch } from '../../store/store';
 import useTaskForm from '../../hooks/use-task-form/use-task-form';
 import TaskInput from '../task-input/task-input';
 import {
-  inputName, inputText, inputDateTerm, inputDateEnd,
+  inputName,
+  inputText,
+  inputDateTerm,
+  inputDateEnd,
+  inputIsComplete,
 } from '../../constants/input';
 import { Operation } from '../../store/store';
 import { getFormId, getTasks } from '../../store/selector';
@@ -31,19 +35,28 @@ const TaskForm = ({
     formId ? tasks.find(item => item.id === formId) : task,
     () => onSendTask(inputs),
   );
+  const isNew = formId === 0;
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
       <div className="task-form__header">
         <div className="task-form__container-submit">
           <button type="submit" className="task-form__btn-submit">
-            add
+            save
           </button>
         </div>
         <div className="task-form__container-delete">
-          <button type="button" className="task-form__btn-delete" onClick={() => onDeleteTask(inputs.id)}>
-            delete
-          </button>
+          {isNew ? (
+            <Fragment />
+          ) : (
+            <button
+              type="button"
+              className="task-form__btn-delete"
+              onClick={() => onDeleteTask(inputs.id)}
+            >
+              delete
+            </button>
+          )}
         </div>
         <h3 className="task-form__title">{formId ? `Задача №${formId}` : 'Новая Задача'}</h3>
         <div className="task-form__container-close">
@@ -63,7 +76,14 @@ const TaskForm = ({
         />
       </div>
       <TaskInput option={inputDateTerm} value={inputs} onChangeValue={handleInputChange} />
-      <TaskInput option={inputDateEnd} value={inputs} onChangeValue={handleInputChange} />
+      {isNew ? (
+        <Fragment />
+      ) : (
+        <Fragment>
+          <TaskInput option={inputIsComplete} value={inputs} onChangeValue={handleInputChange} />
+          <TaskInput option={inputDateEnd} value={inputs} onChangeValue={handleInputChange} />
+        </Fragment>
+      )}
       <TaskInput option={inputText} value={inputs} onChangeValue={handleInputChange} />
     </form>
   );
@@ -76,7 +96,7 @@ const mapStateToProps = (state: State, ownProps: Props) => ({
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onSendTask: (value: Task): void => {
-    dispatch(Operation.addTask(value));
+    dispatch(Operation.takeTask(value));
   },
   onDeleteTask: (id: number): void => {
     dispatch(Operation.deleteTask(id));

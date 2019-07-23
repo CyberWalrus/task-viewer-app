@@ -17,6 +17,10 @@
   max-block-size: 100%;
   text-transform: uppercase;
   color: var(--color-base_75);
+  &_active {
+    color: var(--color-base);
+    background-color: var(--color-base_15);
+  }
   &:focus,
   &:hover {
     color: var(--color-base);

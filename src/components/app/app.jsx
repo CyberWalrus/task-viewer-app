@@ -19,7 +19,13 @@ const App = ({ isOpen }: Props) => (
       <Content />
     </main>
     <Footer />
-    {isOpen ? <TaskForm /> : <Fragment />}
+    {isOpen ? (
+      <div className="task-form-box">
+        <TaskForm />
+      </div>
+    ) : (
+      <Fragment />
+    )}
   </Fragment>
 );
 

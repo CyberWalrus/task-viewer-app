@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import type { Task as TypeTask } from '../../constants/task';
 import type { State, Dispatch } from '../../store/store';
 import { Operation } from '../../store/store';
-import { status, taskStatus } from '../../constants/status';
+import { status } from '../../constants/status';
 
 type Props = {
   task: TypeTask,
@@ -26,9 +26,11 @@ const getTaskStyle = (task: TypeTask): string => {
   if (task.status === status.VERY_IMPORTANT) {
     typeStyle = taskStyle.VERY_IMPORTANT;
   }
-  const time = new Date(task.dateTerm);
-  if (time < Date.now()) {
-    typeStyle = taskStyle.ALERT;
+  if (task.dateTerm) {
+    const time = Date.parse(task.dateTerm);
+    if (time < Date.now()) {
+      typeStyle = taskStyle.ALERT;
+    }
   }
   if (task.isComplete) {
     typeStyle = taskStyle.COMPLETE;
@@ -41,11 +43,9 @@ const Task = ({ task, onOpenForm }: Props) => (
     <div className="task__header">
       <p className="task__id">{task.id}</p>
       <h3 className="task__title">{task.name}</h3>
-      <button
-        type="button"
-        className="task__btn-change"
-        onClick={() => onOpenForm(true, task.id)}
-      />
+      <button type="button" className="task__btn-change" onClick={() => onOpenForm(true, task.id)}>
+        change
+      </button>
     </div>
     <div className="task__main">
       <p className="task__text">{task.text}</p>

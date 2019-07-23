@@ -83,14 +83,36 @@ const ActionCreator = {
 };
 
 const Operation = {
-  addTask: (value: Task): ThunkAction => (dispatch: Dispatch, _getState: () => State): void => {
-    const { tasks, taskCount } = _getState();
-    const taskNew = tasks.slice(0);
-    const task: Task = { ...value, id: taskCount + 1 };
-    taskNew.push(task);
-    dispatch(ActionCreator.incrementTaskCount());
-    dispatch(ActionCreator.setTasks(taskNew));
-    dispatch(Operation.changeStateForm(false, 0));
+  takeTask: (value: Task): ThunkAction => (dispatch: Dispatch, _getState: () => State): void => {
+    try {
+      if (value.id === 0) {
+        const { tasks, taskCount } = _getState();
+        const taskNew = tasks.slice(0);
+        const task: Task = { ...value, id: taskCount + 1 };
+        taskNew.push(task);
+        dispatch(ActionCreator.incrementTaskCount());
+        dispatch(ActionCreator.setTasks(taskNew));
+        dispatch(Operation.changeStateForm(false, 0));
+      } else {
+        const { tasks } = _getState();
+        const taskNew = tasks.slice(0);
+        dispatch(
+          ActionCreator.setTasks(
+            taskNew.map(
+              (item: Task): Task => {
+                if (value.id === item.id) {
+                  return value;
+                }
+                return item;
+              },
+            ),
+          ),
+        );
+        dispatch(Operation.changeStateForm(false, 0));
+      }
+    } catch (error) {
+      dispatch(Operation.changeStateForm(false, 0));
+    }
   },
   deleteTask: (id: number): ThunkAction => (dispatch: Dispatch, _getState: () => State): void => {
     const { tasks } = _getState();
@@ -106,9 +128,7 @@ const Operation = {
     }
     dispatch(ActionCreator.setIsOpen(isOpen));
   },
-  changeFilter: (filter: FilterStatus): ThunkAction => (
-    dispatch: Dispatch,
-  ): void => {
+  changeFilter: (filter: FilterStatus): ThunkAction => (dispatch: Dispatch): void => {
     dispatch(ActionCreator.setFilter(filter));
     dispatch(ActionCreator.resetShowCount());
   },

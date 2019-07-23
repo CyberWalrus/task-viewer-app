@@ -29,7 +29,13 @@ const inputDateEnd: OptionInput = {
   cssClass: 'task-form__input-date',
   name: 'dateEnd',
 };
+const inputIsComplete: OptionInput = {
+  title: 'Выполнено',
+  type: 'checkbox',
+  cssClass: '',
+  name: 'isComplete',
+};
 
 export {
-  inputName, inputText, inputDateTerm, inputDateEnd,
+  inputName, inputText, inputDateTerm, inputDateEnd, inputIsComplete,
 };
